@@ -34,7 +34,8 @@ body {
   padding: 18px 0;
   text-align: center;
 }
-.register{
+/* register */
+.login{
   display: none ;
 }
 /* 表单区域 */
@@ -55,4 +56,5 @@ float: right;
 .myForm .layui-form-item input {
   padding-left: 30px;
 }
+
 
