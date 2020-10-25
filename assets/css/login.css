@@ -1,18 +1,57 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 /* logo  背景图片的设置 */
-body,html{
+body,
+html {
   height: 100%;
 }
-body{
+body {
   height: 100%;
   background: url(../images/login_bg.jpg) no-repeat;
   background-size: cover;
   overflow: hidden;
+  position: relative;
 }
-.logo{
-  width: 800px;
+.logo {
+  width: 1200px;
   margin: 20px auto 0;
+}
+
+/* 中间的登录和注册 */
+.login,
+.register {
+  width: 400px;
+  height: 310px;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%,50%);
+}
+.title{
+  padding: 18px 0;
+  text-align: center;
+}
+.login{
+  display: none ;
+}
+/* 表单区域 */
+.myForm{
+  padding: 0 30px;
+}
+.myForm a {
+float: right; 
+}
+.myForm .layui-form-item {
+  position: relative;
+}
+.layui-form-item .layui-icon{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.myForm .layui-form-item input {
+  padding-left: 30px;
 }
