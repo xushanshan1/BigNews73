@@ -8,6 +8,7 @@ $(function () {
     $('.register').hide().prev().show()
   })
 
+  // 验证注册和登录
   var form = layui.form
   form.verify({
     username: function (value, item) {
@@ -26,9 +27,10 @@ $(function () {
       // item是当前的确认密码框元素
       // value是当前确认密码框中输入的值
       // 2.1 获取密码框中的输入内容
-      var passVal = $('.register .myForm input[name=password]').val()
+      var passValue = $(' .myForm .pass').val()
+      console.log(passValue)
       // 2.2 判断两次输入的密码是否相同
-      if (passVal !== value) {
+      if (value !== passValue) {
         // 2.3 清空密码框并添加提示
         $('.register .myForm .pass,.register .myForm .repass').val('')
         return '两次密码不一致,请重新输入'
@@ -40,26 +42,43 @@ $(function () {
     pass: [/^[\d]{6,12}$/, '密码必须6到12位数字，且不能出现空格'],
   })
 
-  // $('button').on('click',function(e){
-  //   e.preventDefault()
-  // })
-
+  // 根路径
   var BASE_URL = 'http://ajax.frontend.itheima.net'
 
-  // $('.register myForm').on('submit', function (e) {
-  //   e.preventDefault()
-  //   $.ajax({
-  //     type: 'post',
-  //     url: BASE_URL + '/api/reguser',
-  //     data: $(this).serialize(),
-  //     success: function (info) {
-  //       var layer = layui.layer
-  //       layer.msg(info.message)
-  //       // 4.5 如果注册成功 则跳转登陆界面
-  //       if (info.status == 0) {
-  //         $('.login').show().next().hide()
-  //       }
-  //     },
-  //   })
-  // })
+  // 给注册表单提交ajax请求-表单提交
+  $('.register .myForm').on('submit', function (e) {
+    e.preventDefault() //阻止默认行为
+    $.ajax({
+      type: 'POST',
+      url: BASE_URL + '/api/reguser',
+      data: $(this).serialize(),
+      success: function (res) {
+        // console.log(res)
+        var layer = layui.layer
+        layer.msg(res.message)
+        // 4.5 如果注册成功 则跳转登陆界面
+        if (res.status == 0) {
+          $('.login').show().next().hide()
+        }
+      },
+    })
+  })
+
+  // 给登录表单 提交ajax请求
+
+  $('.login .myForm').on('submit', function (e) {
+    e.preventDefault()
+    $.ajax({
+      type: 'POST',
+      url: BASE_URL + '/api/login',
+      data: $(this).serialize(),
+      success: function (res) {
+        console.log(res)
+        layer.msg(res.message)
+        if (res.status == 0) {
+          location.href = './index.html'
+        }
+      },
+    })
+  })
 })

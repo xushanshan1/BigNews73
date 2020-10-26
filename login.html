@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="./assets/lib/layui/css/layui.css" />
     <link rel="stylesheet" href="./assets/css/login.css" />
 
-    <script src="./assets/lib/layui/layui.all.js"></script>
     <script src="./assets/lib/jquery.js"></script>
+    <script src="./assets/lib/layui/layui.all.js"></script>
     <script src="./assets/js/login.js"></script>
   </head>
   <body>
@@ -23,20 +23,18 @@
       <div class="title">
         <img src="./assets/images/login_title.png" alt="" />
       </div>
-
       <form class="layui-form myForm">
         <!-- 第一行: 用户名 -->
         <div class="layui-form-item">
           <i class="layui-icon layui-icon-username"></i>
           <input
             type="text"
-            name="title"
+            name="username"
             required
-            lay-verify="required"
+            lay-verify="required|username"
             placeholder="请输入用户名"
             autocomplete="off"
             class="layui-input"
-            lay-verify=""
           />
         </div>
         <!-- 第二行: 密码 -->
@@ -46,11 +44,10 @@
             type="password"
             name="password"
             required
-            lay-verify="required"
+            lay-verify="required|pass"
             placeholder="请输入密码"
             autocomplete="off"
             class="layui-input"
-            lay-verify=""
           />
         </div>
         <!-- 第三行: 登陆按钮 -->
@@ -78,7 +75,7 @@
         <img src="./assets/images/login_title.png" alt="" />
       </div>
 
-      <form class="layui-form myForm">
+      <form class="layui-form myForm" action="">
         <!-- 第一行: 用户名 -->
         <div class="layui-form-item">
           <i class="layui-icon layui-icon-username"></i>
@@ -105,14 +102,13 @@
             class="layui-input pass"
           />
         </div>
-        <!-- 第二行: 密码 -->
+        <!-- 第三行: 确认密码 -->
         <div class="layui-form-item">
           <i class="layui-icon layui-icon-password"></i>
           <input
             type="password"
-            name="password"
             required
-            lay-verify="required|repass |pass"
+            lay-verify="required|pass|repass"
             placeholder="确认密码"
             autocomplete="off"
             class="layui-input repass"
@@ -131,7 +127,7 @@
         <!-- 第四行: 去注册的超链接 -->
         <div class="layui-form-item">
           <div class="layui-input-block">
-            <a href="javascript:;">去登录</a>
+            <a href="javascript:;">去注册账号</a>
           </div>
         </div>
       </form>
