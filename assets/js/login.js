@@ -43,14 +43,14 @@ $(function () {
   })
 
   // 根路径
-  var BASE_URL = 'http://ajax.frontend.itheima.net'
+  // var BASE_URL = 'http://ajax.frontend.itheima.net'
 
   // 给注册表单提交ajax请求-表单提交
   $('.register .myForm').on('submit', function (e) {
     e.preventDefault() //阻止默认行为
     $.ajax({
       type: 'POST',
-      url: BASE_URL + '/api/reguser',
+      url: '/api/reguser',
       data: $(this).serialize(),
       success: function (res) {
         // console.log(res)
@@ -70,7 +70,7 @@ $(function () {
     e.preventDefault()
     $.ajax({
       type: 'POST',
-      url: BASE_URL + '/api/login',
+      url:'/api/login',
       data: $(this).serialize(),
       success: function (res) {
         console.log(res)

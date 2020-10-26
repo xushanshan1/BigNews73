@@ -1,0 +1,36 @@
+.heimaFooter {
+  text-align: center;
+}
+.layui-header .text-avatar,
+.userInfo .text-avatar {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  background-color: rgb(0, 150, 136);
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 36px;
+  margin-right: 5px;
+  vertical-align: middle;
+  font-size: 26px;
+}
+.userInfo {
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+}
+.userInfo a {
+  color: #fff;
+}
+
+.layui-icon,
+.iconfont {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.layui-nav .layui-nav-item > .layui-nav-child {
+  padding-left: 20px;
+}
