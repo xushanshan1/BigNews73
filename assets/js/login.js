@@ -73,9 +73,12 @@ $(function () {
       url: '/api/login',
       data: $(this).serialize(),
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         layer.msg(res.message)
         if (res.status == 0) {
+          // 将服务器端返回的token存储起来
+          localStorage.setItem('token', res.token)
+          // 跳转到主页面
           location.href = './index.html'
         }
       },
