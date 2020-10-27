@@ -1,6 +1,5 @@
-$(function () {
-  // 设置公用跟路径
-  $.ajaxPrefilter(function (option) {
-    option.url = 'http://ajax.frontend.itheima.net' + option.url
-  })
+$.ajaxPrefilter(function (options) {
+  console.log(options)
+  // 设置公用根路径
+  options.url = 'http://ajax.frontend.itheima.net' + options.url
 })
