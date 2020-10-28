@@ -3,10 +3,6 @@ $(function () {
   $.ajax({
     type: 'GET',
     url: '/my/userinfo',
-    // headers: {
-    //   Authorization:
-    //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgyMjksInVzZXJuYW1lIjoieHNzMTIzIiwicGFzc3dvcmQiOiIiLCJuaWNrbmFtZSI6IiIsImVtYWlsIjoiIiwidXNlcl9waWMiOiIiLCJpYXQiOjE2MDM3NjQ0NjcsImV4cCI6MTYwMzgwMDQ2N30._u1bqLubgH_yrQO6cZWUWNQgcg5u7S-i7DbUD2idnuM',
-    // },
     success: function (res) {
       console.log(res)
       // 登录成功之后
@@ -42,6 +38,12 @@ $(function () {
         }
       }
     },
+    // 设置翻墙效果，如果退出index页面，会自动删除本地的token。做判断，如果没有token，需要重新登录
+    // complete: function (res) {
+    //   if(res.responseJSON.status == '1' && res.responseJSON.message == '身份认证失败！'){
+    //     location.href = './login.html'
+    //   }
+    // },
   })
 
   // 点击退出按钮，退出index主页面，回到登录页面
