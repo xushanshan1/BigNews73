@@ -43,3 +43,7 @@
 .layui-nav .layui-nav-item > .layui-nav-child {
   padding-left: 20px;
 }
+
+.layui-layout-body{
+  background-color: #ddd;
+}
