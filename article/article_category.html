@@ -45,8 +45,18 @@
         <td>{{value.alias}}</td>
         <td>
           <!-- 注意Id 要大写 -->
-          <button type="button"   data-id="{{value.Id}}"class="layui-btn layui-btn-xs">编辑</button>
-          <button type="button" data-id="{{value.Id}}"  class="layui-btn layui-btn-danger layui-btn-xs btn-del">
+          <button
+            type="button"
+            data-id="{{value.Id}}"
+            class="layui-btn layui-btn-xs btn-edit"
+          >
+            编辑
+          </button>
+          <button
+            type="button"
+            data-id="{{value.Id}}"
+            class="layui-btn layui-btn-danger layui-btn-xs btn-del"
+          >
             删除
           </button>
         </td>
@@ -54,10 +64,9 @@
       {{/each}}
     </script>
 
-    <!-- 添加文章分类列表 -->
+    <!-- 添加文章分类列表--弹出层 -->
     <script type="text/template" id="addForm">
-      <form class="layui-form addForm" lay-filter="myForm">
-        <!-- <input type="hidden" name="id" /> -->
+      <form class="layui-form addForm myForm" lay-filter="myForm">
         <!-- 登录名称 -->
         <div class="layui-form-item">
           <label class="layui-form-label">分类名称</label>
@@ -99,8 +108,49 @@
       </form>
     </script>
 
+    <!-- 编辑文章分类列表---弹出层 -->
+    <script type="text/template" id="editForm">
+      <form class="layui-form myForm editForm" lay-filter="myForm">
+        <input type="hidden" name="Id" />
+        <!-- 登录名称 -->
+        <div class="layui-form-item">
+          <label class="layui-form-label">分类名称</label>
+          <div class="layui-input-block">
+            <input
+              type="text"
+              name="name"
+              required
+              lay-verify="required|username"
+              placeholder="请输入标题"
+              autocomplete="off"
+              class="layui-input"
+            />
+          </div>
+        </div>
+        <!-- 用户昵称 -->
+        <div class="layui-form-item but">
+          <label class="layui-form-label">分类别名</label>
+          <div class="layui-input-block">
+            <input
+              type="text"
+              name="alias"
+              required
+              lay-verify="required|username"
+              placeholder="请输入标题"
+              autocomplete="off"
+              class="layui-input"
+            />
+          </div>
+        </div>
 
-    <!-- 编辑文章扽类列表 -->
+        <!-- 提交按钮   重置按钮 -->
+        <div class="layui-form-item ">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">确认添加</button>
+          </div>
+        </div>
+      </form>
+    </script>
 
     <script src="../assets/lib/jquery.js"></script>
     <script src="../assets/lib/layui/layui.all.js"></script>

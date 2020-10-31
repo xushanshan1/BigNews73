@@ -93,5 +93,50 @@ $(function () {
     )
   })
 
+  // 点击编辑按钮 数据回显在模态框中  根据id获取到当前这一项
+  // 1、给编辑按钮注册点击事件 事件委托
+  $('body').on('click', '.btn-edit', function () {
+    var editId = $(this).data('id')
+    // 2、弹框中要显示待编辑的数据
+    $.ajax({
+      type: 'GET',
+      url: '/my/article/cates/' + editId,
+      success: function (res) {
+        console.log(res)
+        if (res.status === 0) {
+          // 3、获取成功的渲染数据到模态框中--layui中的表单赋值
+          form.val('myForm', res.data)
+          renderTable()
+        }
+      },
+    })
+    // 、弹出模态框 样式于增加列表时弹出的模态框基本类似
+    window.editIndex = layer.open({
+      type: 1,
+      area: '500px', //设置宽高
+      title: '更新文章分类',
+      content: $('#editForm').html(), //渲染到页面
+    })
+  })
 
+  // 点击确认修改按钮，进行文章数据分类更新
+  // 1、给表单注册submit事件 事件委托
+  $('body').on('submit', '.editForm', function (e) {
+    e.preventDefault()
+    // 2、发送ajax请求
+    $.ajax({
+      type: 'POST',
+      url: '/my/article/updatecate',
+      data: $(this).serialize(),
+      success: function (res) {
+        console.log(res)
+        if (res.status === 0) {
+          // 3、成功后隐藏模态框
+          layer.close(window.editIndex)
+          // 4、成功后刷新文章分类列表
+          renderTable()
+        }
+      },
+    })
+  })
 })
