@@ -23,28 +23,30 @@ $(function () {
     state: $('#state').val(), //文章的状态
   }
 
-  // 2、发送ajax请求，获取文章分类列表-渲染到tbody中
+  // 2、获取文章分类列表功能
   renderList()
   function renderList() {
+    // 2.1发送ajax请求
     $.ajax({
       type: 'get',
       url: '/my/article/list',
       data: params,
       success: function (res) {
         // console.log(res)
-        // 2.1将模板存起来
+        // 2.2将模板存起来
         var htmlStr = template('addCategoryList', res)
-        // 2.2渲染到页面中
+        // 2.3渲染到页面中
         $('tbody').html(htmlStr)
-        // 启用分页功能
+        // 2.4启用分页功能
         renderPage(res)
       },
     })
   }
 
-  //3、筛选功能 给表单注册submit事件，通过筛选按钮来触发 接口和获取文章分类列表一样
+  // 3、筛选功能
+  // 3.1 给表单注册submit事件，通过筛选按钮来触发 接口和获取文章分类列表一样
   $('.myForm').on('submit', function (e) {
-    // 3.1阻止默认行为
+    // 3.2阻止默认行为
     e.preventDefault()
     // 3.3 点击筛选按钮的时候，重新获取最新的 id 和 状态（筛选条件）
     params.cate_id = $('#category').val()
@@ -82,23 +84,33 @@ $(function () {
   }
 
   // 5、删除功能
+  // 【注】当前页面的分类列表项全部删除之后，会有一个bug，因为没有触发前一页的按钮，所以当前页码的列表是空的，页码也不会改变
   // 5.1给btn-del删除按钮 注册点击事件  事件委托-动态创建的
   $('body').on('click', '.btn-del', function () {
-    //  5.2 拿到id
+    // 5.6拿到当前页面的分类列表的数量 拿删除按键的数量
+    var count = $('tbody .btn-del').length
+
+    //  5.2 拿到当前按钮的id
     var listId = $(this).data('id')
     // 5.3弹出询问框
     layer.confirm('是否要删除此条文章?', { icon: 3, title: '提示' }, function (
       index
     ) {
       //do <something></something>
-      // 5.4 发送ajax请求 
+      // 5.4 发送ajax请求
       $.ajax({
         type: 'get',
         url: '/my/article/delete/' + listId,
         success: function (res) {
           layer.msg(res.message)
           if (res.status === 0) {
-            // 5.4 确认删除重新渲染页面
+            // 5.5 确认删除重新渲染页面
+            // 5.7 判断显示当前页还是上一页-----------------??
+            if (count == 1) {
+              params.pagenum = params.pagenum == 1 ? 1 : params.pagenum - 1
+              // params.pagenum = 1 ? 1 : params.pagenum - 1
+              // params.pagenum = params.pagenum - 1
+            }
             renderList()
           }
         },
@@ -106,9 +118,4 @@ $(function () {
       layer.close(index)
     })
   })
-
-
-
-
-
 })
