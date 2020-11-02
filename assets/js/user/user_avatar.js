@@ -27,7 +27,6 @@ $(function () {
 
     // 创建(文件)大对象的二进制地址
     var imgUrl = URL.createObjectURL(avatar)
-
     // $img
     // .cropper('destroy')      // 销毁旧的裁剪区域
     // .attr('src', imgUrl)  // 重新设置图片路径

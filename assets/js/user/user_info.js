@@ -61,11 +61,9 @@ $(function () {
     })
   })
 
-  // 基本资料页数据重置 
-  $('.reset').on('click',function(e){
+  // 基本资料页数据重置
+  $('.reset').on('click', function (e) {
     e.preventDefault()
     getUserData()
   })
-
-
 })

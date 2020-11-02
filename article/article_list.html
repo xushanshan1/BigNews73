@@ -56,20 +56,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <button type="button" class="layui-btn layui-btn-xs">
-                  编辑
-                </button>
-                <button type="button" class="layui-btn layui-btn-xs layui-btn-danger">
-                  删除
-                </button>
-              </td>
-            </tr>
+           
           </tbody>
         </table>
 
@@ -100,13 +87,13 @@
         <td>{{value.state}}</td>
         <td>
           <!-- 注意Id 要大写 -->
-          <button
-            type="button"
-            data-id="{{value.Id}}"
+       
+          <a 
+            href="./article_edit.html?id={{value.Id}}"
             class="layui-btn layui-btn-xs btn-edit"
           >
             编辑
-          </button>
+          </a>
           <button type="button" data-id="{{value.Id}}" class="layui-btn layui-btn-danger layui-btn-xs  btn-del"  >
             删除
           </button>

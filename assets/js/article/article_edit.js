@@ -2,31 +2,15 @@ $(function () {
   // 1. 启用富文本编辑器
   initEditor()
 
-  // 2.发送ajax请求，获取文章分类
-  $.ajax({
-    type: 'GET',
-    url: '/my/article/cates',
-    success: function (res) {
-      // console.log(res)
-      if (res.status === 0) {
-        var htmlStr = template('categoryList', res)
-        // 2.1渲染到页面中
-        $('#category').html(htmlStr)
-        // 2.2动态创建的表格需要更新渲染---更新全部
-        layui.form.render()
-      }
-    },
-  })
-
-  // 3、创建裁切区域
-  // 3.1 找到要裁切的图片
+  // 2.创建裁切区域
+  // 2.1 找到要裁切的图片
   var $img = $('#image')
-  // 3.3 配置选项
+  // 2.3 配置选项
   const options = {
     aspectRatio: 400 / 280, //设置剪裁容器的比例
     preview: '.img-preview', // 预览的容器
   }
-  // 3.4 渲染要裁切的图片，调用配置项
+  // 2.4 渲染要裁切的图片，调用配置项
   $img.cropper(options)
 
   // 裁切图片的预览
@@ -51,8 +35,57 @@ $(function () {
     $img.cropper('replace', imgUrl) //url：替换图片的URL重建cropper
   })
 
-  // 6.文章发布效果  已发布 存草稿
-  // 6.1 给两个按钮同时注册click事件
+  // 3. 发送ajax请求。获取文章分类
+  $.ajax({
+    type: 'GET',
+    url: '/my/article/cates',
+    success: function (res) {
+      // console.log(res)
+      if (res.status === 0) {
+        var htmlStr = template('categoryList', res)
+        // 2.1渲染到页面中
+        $('#category').html(htmlStr)
+        // 2.2动态创建的表格需要更新渲染---更新全部
+        layui.form.render()
+        getArticleDataById()
+      }
+    },
+  })
+
+  // 4、根据id实现数据回显
+  // 4.1拿到id
+  var artcileId = location.search.slice(4)
+  function getArticleDataById() {
+    // 4.2 发送ajax请求
+
+    $.ajax({
+      type: 'get',
+      url: '/my/article/' + artcileId,
+      success: function (res) {
+        console.log(res)
+        // 4.3 渲染文章数据
+        if (res.status == 0) {
+          layui.form.val('myForm', {
+            Id: res.data.Id,
+            title: res.data.title,
+            cate_id: res.data.cate_id,
+          })
+          // 富文本编辑中的数据需要单独来渲染
+          tinyMCE.activeEditor.setContent(res.data.content)
+          // 渲染图片
+          $('#image')
+            .cropper('destroy') // 销毁旧的裁剪区域
+            .attr(
+              'src',
+              'http://ajax.frontend.itheima.net' + res.data.cover_img
+            ) // 重新设置图片路径
+            .cropper(options)
+        }
+      },
+    })
+  }
+
+  // 发布修改文章
   $('.btn').on('click', function (e) {
     // 6.2 阻止默认行为
     e.preventDefault()
@@ -88,15 +121,14 @@ $(function () {
           contentType: false, //不要添加请求头
           processData: false, //不要转换成查询字符串
           success: function (res) {
-            // 6.7 提示用户
-            layer.msg(res.message)
             // 6.8 判断
-            if (res.status === 0) {
-              location.href = './article_list.html'
+            if (res.status !== 0) {
+              // 6.7 提示用户
+              layer.msg(res.message)
             }
+            location.href = './article_list.html'
           },
         })
       })
   })
-
 })

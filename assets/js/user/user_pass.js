@@ -21,14 +21,11 @@ layui.form.verify({
 // 点击确认修改，发送ajax请求
 $('.myForm').on('submit', function (e) {
   e.preventDefault()
-
   $.ajax({
     type: 'POST',
     url: '/my/updatepwd',
     data: $(this).serialize(),
     success: function (res) {
-      console.log(res)
-
       layer.msg(res.message)
       if (res.status === 0 && res.message === '更新密码成功！') {
         $('.myForm')[0].reset()
